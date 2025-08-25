@@ -15,6 +15,9 @@
  */
 package com.codelabs.state
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 
@@ -28,6 +31,8 @@ class WellnessViewModel : ViewModel() {
     val tasks: List<WellnessTask>
         get() = _tasks
 
+    var waterDrunk by mutableStateOf(0)
+    var timesStood by mutableStateOf(0)
     fun remove(item: WellnessTask) {
         _tasks.remove(item)
     }
@@ -36,6 +41,14 @@ class WellnessViewModel : ViewModel() {
         tasks.find { it.id == item.id }?.let { task ->
             task.checked = checked
         }
+
+    fun countWater(){
+        waterDrunk++
+    }
+
+    fun countStanding(){
+        timesStood++
+    }
 }
 
 private fun getWellnessTasks() = List(30) { i -> WellnessTask(i, "Task # $i") }
